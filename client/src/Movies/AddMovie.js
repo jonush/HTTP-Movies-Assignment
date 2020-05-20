@@ -11,15 +11,27 @@ const initialMovie ={
 
 const AddMovie = ({ getMovieList }) => {
   const [ movie, setMovie ] = useState(initialMovie);
+  const [ newStar, setNewStar ] = useState('');
   const history = useHistory();
-  const { id } = useParams();
 
   const handleInput = e => {
     e.persist();
     setMovie({
       ...movie,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     })
+  }
+
+  const handleStar = e => {
+    setNewStar(e.target.value)
+  }
+
+  const addStar = e => {
+    setMovie({
+      ...movie,
+      stars: [...movie.stars, newStar]
+    })
+    setNewStar('');
   }
 
   const handleSubmit = e => {
@@ -38,7 +50,7 @@ const AddMovie = ({ getMovieList }) => {
   }
 
   return (
-    <div>
+    <div className='addMovie'>
       <form onSubmit={handleSubmit}>
         <label>
           <input
@@ -74,15 +86,15 @@ const AddMovie = ({ getMovieList }) => {
           <input
             type='text'
             name='stars'
-            value={movie.stars}
+            value={newStar}
             placeholder='Stars'
-            onChange={handleInput}
+            onChange={handleStar}
             multiple
           />
         </label>
-
-        <button onSubmit={handleSubmit}>Add</button>
+        <button onSubmit={handleSubmit}>Add Movie</button>
       </form>
+      <button className='addStar' onClick={addStar}>Add Star</button>
     </div>
   )
 }
