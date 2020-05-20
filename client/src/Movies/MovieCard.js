@@ -1,7 +1,10 @@
 import React from 'react';
+import { Route, NavLink, useHistory } from 'react-router-dom';
 
 const MovieCard = props => {
   const { title, director, metascore, stars } = props.movie;
+  const history = useHistory();
+  
   return (
     <div className="movie-card">
       <h2>{title}</h2>
